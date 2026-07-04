@@ -8,7 +8,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     lang = context.user_data.get("lang")
 
-    # если язык не выбран
+    # если язык не выбран → выбор языка
     if not lang:
         await update.message.reply_text(
             "Выбери язык 👇",
@@ -16,7 +16,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
         )
         return
 
-    # если язык уже есть → показываем меню
+    # если язык есть → показываем меню
     await update.message.reply_text(
         "Главное меню 👇",
         reply_markup=main_menu()
