@@ -8,11 +8,7 @@ from telegram.ext import (
 )
 
 from handlers.start import start
-
-
-# /start
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
-    await update.message.reply_text("Выбери язык 👇")
+from keyboards.language_keyboard import language_keyboard
 
 
 # обработка кнопок
