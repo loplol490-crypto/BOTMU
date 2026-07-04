@@ -11,7 +11,7 @@ from handlers.start import start
 from keyboards.language_keyboard import language_keyboard
 
 
-# обработка кнопок
+# обработка кнопок (с памятью языка)
 async def handle_language(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -19,10 +19,15 @@ async def handle_language(update: Update, context: ContextTypes.DEFAULT_TYPE):
     data = query.data
 
     if data == "lang_ru":
+        context.user_data["lang"] = "ru"
         await query.edit_message_text("Ты выбрал 🇷🇺 Русский")
+
     elif data == "lang_en":
+        context.user_data["lang"] = "en"
         await query.edit_message_text("You selected 🇬🇧 English")
+
     elif data == "lang_kg":
+        context.user_data["lang"] = "kg"
         await query.edit_message_text("Сиз 🇰🇬 Кыргыз тилин тандадыңыз")
 
 
