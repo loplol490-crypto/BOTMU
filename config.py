@@ -1,3 +1,6 @@
 import os
 
-BOT_TOKEN = "8511583821:AAGkuPw8bSj9PnAnZHaZJUCDsSOLsTw7iF0"
+BOT_TOKEN = os.getenv("BOT_TOKEN")
+
+if not BOT_TOKEN:
+    raise Exception("BOT_TOKEN НЕ НАЙДЕН в Environment Variables")
