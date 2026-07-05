@@ -4,13 +4,17 @@ from telegram.ext import (
     ApplicationBuilder,
     CommandHandler,
     CallbackQueryHandler,
+    MessageHandler,
     ContextTypes,
+    filters,
 )
 
 from handlers.start import start
 from keyboards.menu import main_menu
+from handlers.message import message_handler
 
 
+# ОБРАБОТКА КНОПОК
 async def handle_callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
     query = update.callback_query
     await query.answer()
@@ -47,10 +51,16 @@ async def handle_callbacks(update: Update, context: ContextTypes.DEFAULT_TYPE):
 def main():
     app = ApplicationBuilder().token(BOT_TOKEN).build()
 
+    # /start
     app.add_handler(CommandHandler("start", start))
 
-    # ОДИН обработчик ВСЕХ кнопок
+    # кнопки
     app.add_handler(CallbackQueryHandler(handle_callbacks))
+
+    # 🤖 ЛЮБЫЕ СООБЩЕНИЯ → AI-друг
+    app.add_handler(
+        MessageHandler(filters.TEXT & ~filters.COMMAND, message_handler)
+    )
 
     app.run_polling()
 
