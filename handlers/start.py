@@ -1,23 +1,24 @@
 from telegram import Update
 from telegram.ext import ContextTypes
 from keyboards.language_keyboard import language_keyboard
-from keyboards.menu import main_menu
 
 
 async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
     lang = context.user_data.get("lang")
 
-    # если язык не выбран → выбор языка
+    # если язык ещё не выбран
     if not lang:
         await update.message.reply_text(
-            "Выбери язык 👇",
+            "👋 Привет! Я твой AI-друг и гид по Кыргызстану 🇰🇬\n\n"
+            "Сначала выбери язык 👇",
             reply_markup=language_keyboard()
         )
         return
 
-    # если язык есть → показываем меню
+    # если язык уже есть
     await update.message.reply_text(
-        "Главное меню 👇",
-        reply_markup=main_menu()
+        "👋 С возвращением!\n\n"
+        "Я твой AI-друг по Кыргызстану 🇰🇬\n"
+        "Напиши мне что хочешь узнать или напиши 'меню' чтобы открыть кнопки"
     )
